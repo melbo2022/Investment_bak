@@ -143,7 +143,7 @@ def PPMT_loan():
         #年度リストをデータフレームにする
         #--x軸リストとy軸リストでデータフレームを作成する-----------------------------------------------------------------------
         df_year = pd.DataFrame(list(zip(x_year_list,y_year_list)), columns = ['経過年数','借入金残高'])
-        df_year=df.set_index('経過年数')
+        df_year=df_year.set_index('経過年数')
         print(df_year)
 
 
