@@ -14,9 +14,9 @@ def PV_pension():
     # import matplotlib as mpl
     # mpl.rc('font', family="MS Gothic")
 
-    import plotly.graph_objects as go
-    import plotly.express as px
-    from plotly.subplots import make_subplots
+    # import plotly.graph_objects as go
+    # import plotly.express as px
+    # from plotly.subplots import make_subplots
     from PIL import Image
 
     import D_ORIGIN
@@ -144,19 +144,16 @@ def PV_pension():
         print(df_year)
 
 
-        #--Expressでグラフを描画する--------------------------------------------------------------------------------------
-
-        fig = px.bar(df,x='経過月数',y='年金原資残高')
-        fig_year = px.bar(df_year,x='経過年数',y='年金原資残高')
+        #--- streamlitでグラフを描画する--------------------------------------------------------------------------------------
 
         if option_radio !='':
             radio=option_radio
 
             if radio=='月単位':
-                fig.show()
-            elif radio=='年単位':
-                fig_year.show()
+                st.bar_chart(df)
 
+            elif radio=='年単位':
+                st.bar_chart(df_year)
 
 #このプログラムは、d_org.pyにおいて選択された場合に動作するが、次のコードがないとimportした瞬間にFV_deposit()が動作してしまう。
 if __name__ == "__main__":

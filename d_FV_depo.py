@@ -14,9 +14,9 @@ def FV_deposit():
     # import matplotlib as mpl
     # mpl.rc('font', family="MS Gothic")
 
-    import plotly.graph_objects as go
-    import plotly.express as px
-    from plotly.subplots import make_subplots
+    # import plotly.graph_objects as go
+    # import plotly.express as px
+    # from plotly.subplots import make_subplots
     from PIL import Image
 
     import D_ORIGIN
@@ -126,18 +126,16 @@ def FV_deposit():
         df_year = pd.DataFrame(list(zip(x_year_list,y_year_list)), columns = ['経過年数','積立合計額'])
         print(df_year)
 
-        #--Expressでグラフを描画する---------------------------------------------------------------------------------------
-
-        fig = px.bar(df,x='経過月数',y='積立合計額')
-        fig_year = px.bar(df_year,x='経過年数',y='積立合計額')
+        #--- streamlitでグラフを描画する--------------------------------------------------------------------------------------
 
         if option_radio !='':
             radio=option_radio
 
             if radio=='月単位':
-                fig.show()
+                st.bar_chart(df)
+
             elif radio=='年単位':
-                fig_year.show()
+                st.bar_chart(df_year)
 
 
 
