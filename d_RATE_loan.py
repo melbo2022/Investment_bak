@@ -36,10 +36,10 @@ def RATE_loan():
         st.image(image,caption='RATE（借入金調達金利計算）',use_column_width=True)
 
         #戻るボタン配置(Trueのとき呼び出し元へ戻る）
-        return_btn=st.button('戻る')
-        if return_btn:
-
-            D_ORIGIN.org()
+        # return_btn=st.button('戻る')
+        # if return_btn:
+        #
+        #     D_ORIGIN.org()
     #------------------------------------------------------------------------------------------------------------------
 
     #with st.form(key='invest_form'):

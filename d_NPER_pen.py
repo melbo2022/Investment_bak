@@ -36,10 +36,10 @@ def NPER_pension():
         st.image(image,caption='FV（必要積立回数計算）',use_column_width=True)
 
         #戻るボタン配置(Trueのとき呼び出し元へ戻る）
-        return_btn=st.button('戻る')
-        if return_btn:
-
-            D_ORIGIN.org()
+        # return_btn=st.button('戻る')
+        # if return_btn:
+        #
+        #     D_ORIGIN.org()
     #-------------------------------------------------------------------------------------------------------------------
 
     #with st.form(key='invest_form'):

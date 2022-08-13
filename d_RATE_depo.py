@@ -36,10 +36,10 @@ def RATE_deposit():
         st.image(image,caption='PMT（必要運用利回り計算）',use_column_width=True)
 
         #戻るボタン配置(Trueのとき呼び出し元へ戻る）???????????????表示されているpngを削除した状態にしたい
-        return_btn=st.button('戻る')
-        if return_btn:
-
-            D_ORIGIN.org()
+        # return_btn=st.button('戻る')
+        # if return_btn:
+        #
+        #     D_ORIGIN.org()
     #------------------------------------------------------------------------------------------------------------------
 
     #with st.form(key='invest_form'):

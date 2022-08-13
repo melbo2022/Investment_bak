@@ -36,10 +36,10 @@ def CUMIPMT_loan():
         st.image(image,caption='CUMIPMT（指定期間借入返済利息合計額計算）',use_column_width=True)
 
         #戻るボタン配置(Trueのとき呼び出し元へ戻る）
-        return_btn=st.button('戻る')
-        if return_btn:
-
-            D_ORIGIN.org()
+        # return_btn=st.button('戻る')
+        # if return_btn:
+        #
+        #     D_ORIGIN.org()
     #------------------------------------------------------------------------------------------------------------------
     #将来価値 (Future Value)
     rate=st.sidebar.text_input('利率 <年利回り1.5%の場合：0.015>','0.015')
@@ -146,18 +146,17 @@ def CUMIPMT_loan():
         #--x軸リストとy軸リストでデータフレームを作成する-----------------------------------------------------------------------
         df_year = pd.DataFrame(list(zip(x_year_list,y_year_list)), columns = ['経過年数','借入金残高'])
         print(df_year)
-        #--Expressでグラフを描画する---------------------------------------------------------------------------------------
 
-        fig = px.bar(df,x='経過月数',y='借入金残高')
-        fig_year = px.bar(df_year,x='経過年数',y='借入金残高')
+        #--- streamlitでグラフを描画する--------------------------------------------------------------------------------------
 
         if option_radio !='':
             radio=option_radio
 
             if radio=='月単位':
-                fig.show()
+                st.bar_chart(df)
+
             elif radio=='年単位':
-                fig_year.show()
+                st.bar_chart(df_year)
 
 
 #このプログラムは、d_org.pyにおいて選択された場合に動作するが、次のコードがないとimportした瞬間にFV_deposit()が動作してしまう。

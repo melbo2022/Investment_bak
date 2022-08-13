@@ -36,10 +36,10 @@ def FV_deposit():
         st.image(image,caption='FV（将来貯蓄額計算）',use_column_width=True)
 
         #戻るボタン配置(Trueのとき呼び出し元へ戻る）
-        return_btn=st.button('戻る')
-        if return_btn:
-
-            D_ORIGIN.org()
+        # return_btn=st.button('戻る')
+        # if return_btn:
+        #
+        #     D_ORIGIN.org()
 #----------------------------------------------------------------------------------------------------------------------
     #将来価値 (Future Value)
     rate=st.sidebar.text_input('利率 <年利回り3%の場合：0.03>','0.03')
