@@ -1,6 +1,6 @@
 #ValueError: could not convert string to float:   -m streamlit.cli run
 #投資シミュレーション
-#test3
+#test4
 #---モジュールをインポートする----------------------------------------------------------------------------------------------
 def FV_deposit():
     import streamlit as st
