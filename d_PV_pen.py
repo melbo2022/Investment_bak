@@ -75,7 +75,8 @@ def PV_pension():
 
         pv=npf.pv(rate/12,nper*12,pmt,fv,when)
         print('必要な年金原資 PV:',pv)
-        st.write('pv(rate,nper,pmt,fv,when)')
+        #st.write('pv(rate,nper,pmt,fv,when)')
+        pv = "{:,}".format(pv)
         st.write('必要年金原資額;',pv)
 
         #--指定したポイントにおける将来価値を算出する---------------------------------------------------------------------------

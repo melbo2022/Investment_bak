@@ -77,7 +77,8 @@ def NPER_pension():
         nper=int(nper)
 
         print('取崩可能回数 NPER:',nper)
-        st.write('rate/12,pmt,pv,fv,when)')
+        #st.write('rate/12,pmt,pv,fv,when)')
+        nper = "{:,}".format(nper)
         st.write('取崩可能回数;',nper)
 
         #--指定したポイントにおける将来価値を算出する---------------------------------------------------------------------------

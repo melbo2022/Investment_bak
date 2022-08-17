@@ -90,7 +90,8 @@ def PMT_loan():
         # print('月額取崩し可能額 PMT:',pmt)
 
 
-        st.write('pmt(rate/12,nper*12,pv,fv,when)')
+        #st.write('pmt(rate/12,nper*12,pv,fv,when)')
+        pmt = "{:,}".format(pmt)
         st.write('月額返済額;',pmt)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------

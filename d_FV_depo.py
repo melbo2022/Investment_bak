@@ -71,9 +71,18 @@ def FV_deposit():
         when=int(when)
 
         fv=npf.fv(rate/12,nper*12, pmt, pv,when)
+        fv=int(fv)
         print('将来価値 FV:',fv)
-        st.write('fv(rate/12,nper*12, pmt, pv,when)')
+        #st.write('fv(rate/12,nper*12, pmt, pv,when)')
+
+        fv="{:,}".format(fv)
         st.write('最終積立金残高;',fv)
+
+
+
+
+
+
 
         #--指定したポイントにおける将来価値を算出する---------------------------------------------------------------------------
         # fv_point=npf.fv(rate/12,nper_p*12, pmt, pv,when)

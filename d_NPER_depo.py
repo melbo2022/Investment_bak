@@ -78,7 +78,8 @@ def NPER_deposit():
         nper=int(nper)
 
         print('必要積立回数 NPER:',nper)
-        st.write('rate/12,pmt,pv,fv,when)')
+        #st.write('rate/12,pmt,pv,fv,when)')
+
         st.write('必要積立回数;',nper)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------

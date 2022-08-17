@@ -88,7 +88,8 @@ def PPMT_loan():
         # print('月額取崩し可能額 PMT:',pmt)
 
 
-        st.write('ppmt(rate/12,per,nper*12,pv,fv,when)')
+        #st.write('ppmt(rate/12,per,nper*12,pv,fv,when)')
+        ppmt = "{:,}".format(ppmt)
         st.write('返済元金額;',ppmt)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------

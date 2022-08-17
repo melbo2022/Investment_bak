@@ -76,7 +76,8 @@ def PMT_deposit():
         pmt=npf.pmt(rate/12,nper*12,pv,fv,when)
 
         print('必要積立額 PMT:',pmt)
-        st.write('fv(rate/12,nper*12,pv,fv,when)')
+        #st.write('fv(rate/12,nper*12,pv,fv,when)')
+        pmt = "{:,}".format(pmt)
         st.write('必要積立額;',pmt)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------
