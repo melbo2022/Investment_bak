@@ -82,6 +82,7 @@ def PV_loan():
         #st.write('pv(rate,nper,pmt,fv,when)')
         pv = "{:,}".format(pv)
         st.write('必要年金原資額;',pv)
+        pv=int(pv)
 
         #--指定したポイントにおける将来価値を算出する---------------------------------------------------------------------------
         # fv_point=npf.fv(rate/12,nper_p*12, pmt, pv,when)

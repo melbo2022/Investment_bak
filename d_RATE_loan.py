@@ -78,7 +78,7 @@ def RATE_loan():
 
         print('調達金利　RATE:',rate)
         #st.write('rate(nper*12,pmt,pv,fv,when)')
-        rate = "{:,}".format(rate)
+
         st.write('調達金利;',rate)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------

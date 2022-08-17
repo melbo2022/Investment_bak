@@ -79,7 +79,7 @@ def RATE_pension():
 
         print('必要運用利回り　RATE:',rate)
         #st.write('rate(nper*12,pmt,pv,fv,when)')
-        rate = "{:,}".format(rate)
+
         st.write('必要運用利回り;',rate)
 
         #--指定したポイントにおける将来価値を算出する--------------------------------------------------------------------------
