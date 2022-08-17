@@ -90,7 +90,7 @@ def CUMPRINC_loan():
         ipmt=int(pmt)
 
         #数値を3桁区切りにする
-        # pmt="{:,}".format(pmt)
+
         # print('月額取崩し可能額 PMT:',pmt)
 
         st.write('返済元金合計額;',cumprinc)
