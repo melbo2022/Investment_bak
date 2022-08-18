@@ -75,9 +75,9 @@ def PV_loan():
         when=int(when)
 
         pv=npf.pv(rate/12,nper,pmt,fv,when)
-        pv=int(pv)
 
         pv=npf.pv(rate/12,nper*12,pmt,fv,when)
+        pv = int(pv)
         print('必要な年金原資 PV:',pv)
         #st.write('pv(rate,nper,pmt,fv,when)')
 
