@@ -1,4 +1,6 @@
 #ValueError: could not convert string to float:   -m streamlit.cli run
+#github change
+
 def org():
     import streamlit as st
     import d_FV_depo
@@ -97,8 +99,8 @@ def org():
         st.write('返済元金合計')
         d_CUMPRINC_loan.CUMPRINC_loan()
 
-    if option_select3 == '返済元金累計計算(CUMPRINC)':
-        st.write('返済元金合計')
+    if option_select3 == '返済利息累計計算(CUMIPMT)':
+        st.write('返済利息合計')
         d_CUMIPMT_loan.CUMIPMT_loan()
 
 #-------------------------------------------------------------------------------------------------
