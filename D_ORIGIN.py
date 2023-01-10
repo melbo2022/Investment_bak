@@ -1,5 +1,6 @@
 #ValueError: could not convert string to float:   -m streamlit.cli run
 #github change
+#git bushから実行
 
 def org():
     import streamlit as st
