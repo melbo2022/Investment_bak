@@ -1,14 +1,13 @@
-#ValueError: could not convert string to float:   -m streamlit.cli run
 #投資シミュレーション
-
-#---モジュールをインポートする-----------------------------------------------------------------------------------------------
+#借入額における指定期間の借入利息合計を算出する-------------------------------------------------------------
 def CUMIPMT_loan():
-    import streamlit as st
+
+    #モジュールをインポートする
     import numpy as np
     import numpy_financial as npf
     import pandas as pd
-
     import time
+
     # import matplotlib.pyplot as plt
     #日本語フォントをインポートする(matplotlib)
     # import matplotlib as mpl
@@ -17,58 +16,149 @@ def CUMIPMT_loan():
     import plotly.graph_objects as go
     import plotly.express as px
     from plotly.subplots import make_subplots
+
     from PIL import Image
+    from PIL import ImageTk
 
-    import D_ORIGIN
+    import tkinter as tk
+    from tkinter import messagebox
+    import tkinter.messagebox as msg
 
-    """
-     # 借入額における指定期間の借入利息合計を算出する
-     """
-    #-------------------------------------------------------------------------------------------------------------------
-    #イメージ画像チェックボックス
-    option_check=st.checkbox('イメージ画像:　例（デフォルト値)')
+    #---パラメータボックスを作る------------------------------------------------------------------
+    #パラメータボックスを作る
+    # rate (必須): 利率
+    # nper (必須): 複利計算期間数 (支払回数)
+    # pv (必須): 現在価値 (返済の場合: 借入金額, 貯蓄の場合: 積立済金額)
+    # start_period: 計算開始の支払回数
+    # end_period: 計算終了の支払回数
+    # when: 支払期日、いつ支払いが行われるか。 (end/0: 各期の期末, start/1: 各期の機種)
 
-    #--イメージ画像を表示する-----------------------------------------------------------------------------------------------
-    #チェックボックス処理
-    if option_check==True:
-        image=Image.open("./CUMIPMT_loan.png")
-        st.write("3千万円を金利1.5%で借入をした。\n20年で完済する場合の指定期間の返済利息合計額を求める")
-        st.image(image,caption='CUMIPMT（指定期間借入返済利息合計額計算）',use_column_width=True)
+    #CUMIPMT(rate,nper,pv,start_period,end_period,type)
 
-        #戻るボタン配置(Trueのとき呼び出し元へ戻る）
-        # return_btn=st.button('戻る')
-        # if return_btn:
-        #
-        #     D_ORIGIN.org()
-    #------------------------------------------------------------------------------------------------------------------
-    #将来価値 (Future Value)
-    rate=st.sidebar.text_input('利率 <年利回り1.5%の場合：0.015>','0.015')
-    nper=st.sidebar.text_input('返済期間（年数）','20')
-    pv=st.sidebar.text_input('借入額','30000000')
-    speriod=st.sidebar.text_input('計算開始_回目(月)','1')
-    eperiod=st.sidebar.text_input('計算終了_回目(月)','120')
-    when=st.sidebar.text_input('支払期日 (0: 各期の期末, 1: 各期の期首)','1')
 
-    #---指定した回数における積立残高を表示する------nper=st.sidebar.text_input('指定時回数')
-    #nper_p=st.sidebar.text_input('・回目の残高を指定')
-    #nper_p=int(nper_p)
+    #--tkinterによるテキストボックス作成----------------------------------------------------------------
+    # メインウィンドウを作成
+    app_cumipmt_l = tk.Toplevel()
+    # ウィンドウのサイズを設定
+    app_cumipmt_l.geometry('450x350+500+100')
+    # 画面タイトル
+    app_cumipmt_l.title('指定期間返済利息合計計算')
 
-    #グラフを年度単位か月単位かを選択する--------------------------------------------------------------------------------------
-    option_radio=st.sidebar.radio('グラフ表示',
-                                  ('','月単位','年単位'))
+    #--テキストボックス-------------------------------------------------------------------------
+    # ラベル
+    label1 = tk.Label(app_cumipmt_l,text='利率（年利）')
+    label1.place(x=30, y=20)
 
-    #OK,キャンセルボタンを作成
-    submit_btn=st.sidebar.button('OK')
-    #cancel_btn=st.sidebar.button('キャンセル')
+    label2 = tk.Label(app_cumipmt_l,text='返済期間（年）')
+    label2.place(x=30, y=70)
 
-    if submit_btn:
-        rate=float(rate)
-        nper=int(nper)
+    label3 = tk.Label(app_cumipmt_l,text='借入額')
+    label3.place(x=30, y=120)
+
+    label4 = tk.Label(app_cumipmt_l,text='計算開始_回目(月)')
+    label4.place(x=30, y=170)
+
+    label5 = tk.Label(app_cumipmt_l,text='計算終了_回目(月)')
+    label5.place(x=30, y=220)
+
+    label6 = tk.Label(app_cumipmt_l,text='支払期日(0:期末, 1:期首)')
+    label6.place(x=30, y=270)
+
+    # テキストボックス
+    textBox1 = tk.Entry(app_cumipmt_l)
+    textBox1.insert(0,"0.015")
+    textBox1.place(x=250, y=20)
+
+    textBox2 = tk.Entry(app_cumipmt_l)
+    textBox2.insert(1,"20")
+    textBox2.place(x=250, y=70)
+
+    textBox3 = tk.Entry(app_cumipmt_l)
+    textBox3.insert(2,"30000000")
+    textBox3.place(x=250, y=120)
+
+    textBox4 = tk.Entry(app_cumipmt_l)
+    textBox4.insert(3,"1")
+    textBox4.place(x=250, y=170)
+
+    textBox5 = tk.Entry(app_cumipmt_l)
+    textBox5.insert(4,"120")
+    textBox5.place(x=250, y=220)
+
+    textBox6 = tk.Entry(app_cumipmt_l)
+    textBox6.insert(5,"1")
+    textBox6.place(x=250, y=270)
+
+
+
+    #--要件を確認するメッセージを表示する--ボタン（要件確認）---------------------------------------------------------------------
+    # 画面作成
+    def exp():
+
+        #テキストの値を取得する
+        rate=textBox1.get()
+        nper=textBox2.get()
+        pv=textBox3.get()
+        speriod=textBox4.get()
+        eperiod=textBox5.get()
+        when=textBox6.get()
+
+        elem_list=[rate,nper,pv,speriod,eperiod,when]
+        a=''
+        if a in elem_list:
+            tk.messagebox.showerror('showerror','空白の要素があります')
+
+
+
+        rate=float(rate)*100
+
+        #数値を3桁区切りにする
         pv=int(pv)
-        speriod=int(speriod)
-        eperiod=int(eperiod)
-        when=int(when)
+        pv="{:,}".format(pv)
 
+
+        exp="{}円を金利{}%で借入をした。\n{}年で完済する場合の指定期間の返済利息合計額を求める".format(pv,rate,nper)
+        tk.messagebox.showinfo(title="指定期間返済利息合計額", message=exp)
+
+    #-----------------------------------------------------------------------------------------------------------
+    def img():
+        #別ファイルのモジュールをインポートする場合----------------------------------------------------------------
+        # import sys
+        # from pathlib import Path
+        #
+        # p_cwd = Path('.')
+        # p_hoge_dir = p_cwd.joinpath('img')
+        # sys.path.append(str(p_hoge_dir))
+        #from img import d_img
+        #----------------------------------------------------------------------------------------------
+        import d_img
+        i='CUMIPMT_loan.png'
+        d_img.financial_img(i)
+
+
+    #--グラフを作成する--ボタン（グラフ）-----------------------------------------------------------------------------
+    def fv_gr():
+        # テキストボックスの値を取得
+        print(textBox1.get())
+        print(textBox2.get())
+        print(textBox3.get())
+        print(textBox4.get())
+        print(textBox5.get())
+        print(textBox6.get())
+
+        rate=textBox1.get()
+        nper=textBox2.get()
+        pv=textBox3.get()
+        speriod=textBox4.get()
+        eperiod=textBox5.get()
+        when=textBox6.get()
+
+        #要素が空白の場合にメッセージを出す-------------------------------------------------------
+        elem_list=[rate,nper,pv,speriod,eperiod,when]
+        a=''
+        if a in elem_list:
+            tk.messagebox.showerror('showerror','空白の要素があります')
+        #----------------------------------------------------------------------------------
 
         rate=float(rate)
         nper=int(nper)
@@ -88,21 +178,7 @@ def CUMIPMT_loan():
         #cumipmt=int(cumipmt)
 
         pmt=npf.pmt(rate/12,nper*12,pv,0,when)
-        pmt=int(pmt)
-
-        #数値を3桁区切りにする
-        # pmt="{:,}".format(pmt)
-        # print('月額取崩し可能額 PMT:',pmt)
-
-        st.write('返済利息合計額;',cumipmt)
-
-        #--指定したポイントにおける将来価値を算出する---------------------------------------------------------------------------
-        # fv_point=npf.fv(rate/12,nper_p*12, pmt, pv,when)
-        # print('指定時積立残高 FV:',fv_point)
-        # st.write(nper_p,'回目の積立金残高:',fv_point)
-
-
-        #--年度単位グラフを作成する準備--------------------------------------------------------------------------------------
+        ipmt=int(pmt)
 
         #X軸の値を作成する
         x_list=[]
@@ -118,14 +194,13 @@ def CUMIPMT_loan():
         print(y_list)
 
 
-        #--月単位グラフを作成する準備----------------------------------------------------------------------------------------
+        #--月単位グラフを作成する準備-------------------------------------------------------------------
         #x軸リストとy軸リストでデータフレームを作成する
         df = pd.DataFrame(list(zip(x_list,y_list)), columns = ['経過月数','借入金残高'])
-        df=df.set_index('経過月数')
         print(df)
 
 
-        #--年度単位グラフを作成する準備--------------------------------------------------------------------------------------
+        #--年度単位グラフを作成する準備------------------------------------------------------------------------------------------
         #X軸の値を年度ごとに変更
 
         x_year_list=[]
@@ -138,29 +213,100 @@ def CUMIPMT_loan():
                 continue
 
         print(x_year_list)
-        #--------------------------------------------------------------------------------------------------------------
+        #-----------------------------------------------------------------------------------------------
         #y軸の値のうち各年度の最終月の値を取得する(y_listの12番目の値から12飛ばしで値を取得する）
         y_year_list=y_list[11::12]
         print(y_year_list)
 
         #年度リストをデータフレームにする
-        #--x軸リストとy軸リストでデータフレームを作成する-----------------------------------------------------------------------
+        #--x軸リストとy軸リストでデータフレームを作成する----------------------------------------------------------
         df_year = pd.DataFrame(list(zip(x_year_list,y_year_list)), columns = ['経過年数','借入金残高'])
-        df_year=df_year.set_index('経過年数')
         print(df_year)
 
-        #--- streamlitでグラフを描画する--------------------------------------------------------------------------------------
+        #--Expressでグラフを描画する-----------------------------------------------------------------------------------------------------------
 
-        if option_radio !='':
-            radio=option_radio
+        fig = px.bar(df,x='経過月数',y='借入金残高')
+        fig_year = px.bar(df_year,x='経過年数',y='借入金残高')
 
-            if radio=='月単位':
-                st.bar_chart(df)
-
-            elif radio=='年単位':
-                st.bar_chart(df_year)
+        #fig.show()
+        fig_year.show()
 
 
-#このプログラムは、d_org.pyにおいて選択された場合に動作するが、次のコードがないとimportした瞬間にFV_deposit()が動作してしまう。
+    #--答えをメッセージボックスで表示する--ボタン（OK)------------------------------------------------------------------------------------
+    def val():
+        # テキストボックスの値を取得
+        print(textBox1.get())
+        print(textBox2.get())
+        print(textBox3.get())
+        print(textBox4.get())
+        print(textBox5.get())
+        print(textBox6.get())
+
+        rate=textBox1.get()
+        nper=textBox2.get()
+        pv=textBox3.get()
+        speriod=textBox4.get()
+        eperiod=textBox5.get()
+        when=textBox6.get()
+
+        #要素が空白の場合にメッセージを出す-------------------------------------------------------
+        elem_list=[rate,nper,pv,speriod,eperiod,when]
+        a=''
+        if a in elem_list:
+            tk.messagebox.showerror('showerror','空白の要素があります')
+        #--計算をする--------------------------------------------------------------------------------
+        rate=float(rate)
+        nper=int(nper)
+        pv=int(pv)
+        speriod=int(speriod)
+        eperiod=int(eperiod)
+        when=int(when)
+
+        #cumipmtがnumpyで使用できないためipmtより計算する
+        cumipmt=0
+        for r in range(speriod,eperiod+1):
+            ipmt=npf.ipmt(rate/12,r,nper*12,pv,0,when)
+            cumipmt=cumipmt+int(ipmt)
+
+        #cumipmt=npf.cumipmt(rate/12,nper*12,pv,speriod,eperiod,when)
+        # pmt=npf.pmt(rate/12,nper*12,pv,fv,when)
+        # pmt=int(pmt)*-1
+        #数値を3桁区切りにする
+        # pmt="{:,}".format(pmt)
+
+
+        #小数以下を切り捨てる
+        cumipmt=cumipmt*-1
+        #数値を3桁区切りにする
+        cumipmt="{:,}".format(cumipmt)
+        print('指定期間支払利息合計額 CUMIPMT:',cumipmt)
+
+        #回答をメッセージボックスで表示する
+        res="{}回目から{}回目の支払利息合計額は{}円です".format(speriod,eperiod,cumipmt)
+        tk.messagebox.showinfo(title="指定期間支払利息合計額", message=res)
+        #msg.showinfo("必要積立月額",cumipmt)
+
+    #--ボタンの作成と配置---------------------------------------------------------------------
+    #-------------------------------------------------------------------------------------
+    # クリック時にExP()関数を呼ぶ
+    button3 = tk.Button(app_cumipmt_l,text = '要件確認',command =exp).place(x=30, y=310)
+    #---------------------------------------------------------------------------------------
+    # イメージ図の作成と配置
+    # クリック時にimg()関数を呼ぶ
+    #button4 = tk.Button(app_cumipmt_l,text = 'イメージ図',command =img).place(x=100, y=310)
+    #-----------------------------------------------------------------------------------------
+    # グラフボタンの作成と配置
+    # クリック時にFV_gr()関数を呼ぶ
+    button2 = tk.Button(app_cumipmt_l,text = 'グラフ',width=5,command =fv_gr).place(x=320, y=310)
+    #---------------------------------------------------------------------------------------
+    # OKボタンの作成と配置
+    # クリック時にval()関数を呼ぶ
+    button1 = tk.Button(app_cumipmt_l,text = 'OK',width=5,command = val).place(x=390, y=310)
+    #---------------------------------------------------------------------------------------
+
+    #app_cumipmt_l.mainloop()
+#--------------------------------------------------------------------------------------------------
+# このプログラムは、d_org.pyにおいて選択された場合に動作するが、次のコードがないとimportした瞬間にFV_deposit()が動作してしまう。
 if __name__ == "__main__":
     CUMIPMT_loan()
+
