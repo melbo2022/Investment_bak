@@ -3,11 +3,12 @@
 def CUMIPMT_loan():
 
     #モジュールをインポートする
+    import streamlit as st
     import numpy as np
     import numpy_financial as npf
     import pandas as pd
-    import time
 
+    import time
     # import matplotlib.pyplot as plt
     #日本語フォントをインポートする(matplotlib)
     # import matplotlib as mpl
@@ -16,13 +17,9 @@ def CUMIPMT_loan():
     # import plotly.graph_objects as go
     # import plotly.express as px
     # from plotly.subplots import make_subplots
-
     from PIL import Image
-    from PIL import ImageTk
 
-    import tkinter as tk
-    from tkinter import messagebox
-    import tkinter.messagebox as msg
+    import D_ORIGIN
 
     #---パラメータボックスを作る------------------------------------------------------------------
     #パラメータボックスを作る
