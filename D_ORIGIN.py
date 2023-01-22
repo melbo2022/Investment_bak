@@ -18,8 +18,8 @@ def org():
     import d_RATE_loan
     import d_PPMT_loan
     import d_IPMT_loan
-    import d_CUMPRINC_loan
-    import d_CUMIPMT_loan
+    #import d_CUMPRINC_loan
+    #import d_CUMIPMT_loan
 
 
 
@@ -34,7 +34,7 @@ def org():
 
     option_select3=st.selectbox(
         '借入',
-        (' ','借入限度額計算(PV)','返済年数計算(NPER)','返済月額計算(PMT)','借入利率計算(RATE)','返済元金計算(PPMT)','返済利息計算(IPMT)','返済元金累計計算(CUMPRINC)','返済利息累計計算(CUMIPMT)'))
+        (' ','借入限度額計算(PV)','返済年数計算(NPER)','返済月額計算(PMT)','借入利率計算(RATE)','返済元金計算(PPMT)','返済利息計算(IPMT)'))
 
 
 
@@ -96,13 +96,13 @@ def org():
         st.write('返済利息')
         d_IPMT_loan.IPMT_loan()
 
-    if option_select3 == '返済元金累計計算(CUMPRINC)':
-        st.write('返済元金合計')
-        d_CUMPRINC_loan.CUMPRINC_loan()
-
-    if option_select3 == '返済利息累計計算(CUMIPMT)':
-        st.write('返済利息合計')
-        d_CUMIPMT_loan.CUMIPMT_loan()
+    # if option_select3 == '返済元金累計計算(CUMPRINC)':
+    #     st.write('返済元金合計')
+    #     d_CUMPRINC_loan.CUMPRINC_loan()
+    #
+    # if option_select3 == '返済利息累計計算(CUMIPMT)':
+    #     st.write('返済利息合計')
+    #     d_CUMIPMT_loan.CUMIPMT_loan()
 
 #-------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
