@@ -46,7 +46,7 @@ def CUMIPMT_loan():
     #with st.form(key='invest_form'):
     #将来価値 (Future Value)
     rate=st.sidebar.text_input('利率 <年利回り1.5%の場合：0.015>','0.015')
-    nper=st.sidebar.text_input('積立期間（年数）','20')
+    nper=st.sidebar.text_input('借入期間（年数）','20')
     pv=st.sidebar.text_input(' 現在価値 (借入金額)','30000000')
     speriod=st.sidebar.text_input('計算開始_回目(月)','1')
     eperiod=st.sidebar.text_input('計算終了_回目(月)','240')
